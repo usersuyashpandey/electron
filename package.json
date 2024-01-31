@@ -15,10 +15,49 @@
   },
   "keywords": [],
   "author": {
-    "name": "suyashkumarpandey",
-    "email": "spandey@nextlooptechnologies.com"
+    "name": "usersuyashpandey",
+    "email": "suyashpandey152@gmail.com"
   },
   "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_publish_example"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "usersuyashpandey",
+              "name": "electron",
+              "draft": true
+            }
+          }
+        }
+      ]
+    }
+  },
   "devDependencies": {
     "@electron-forge/cli": "^7.2.0",
     "@electron-forge/maker-deb": "^7.2.0",
