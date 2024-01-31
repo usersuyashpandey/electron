@@ -45,13 +45,3 @@ jobs:
           asset_path: ./out/myapp-win32-x64/myapp.exe
           asset_name: myapp.exe
           asset_content_type: application/octet-stream
-      - name: Create Release
-        id: create-release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
