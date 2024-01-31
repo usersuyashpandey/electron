@@ -1,47 +1,48 @@
-name: Release app
+name: Release
 on:
   push:
     branches:
       - main
+
 jobs:
-  build:
-    strategy:
-      matrix:
-        os:
-          [
-            { name: "windows", image: "windows-latest" },
-            { name: "macos", image: "macos-latest" },
-          ]
-    runs-on: ${{ matrix.os.image }}
+  publish_on_linux:
+    runs-on: ubuntu-latest
     steps:
-      - name: Github checkout
-        uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@master
         with:
           node-version: 20
-      - run: npm ci
-      - name: Build app
-        run: npm run package
-      - name: Make .exe file
-        run: npm run make
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: install dependencies
+        run: npm install
+      - name: publish
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run publish
+
+  publish_on_mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@master
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
-          draft: false
-          prerelease: false
-      - name: Upload .exe file to GitHub Releases
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
+          node-version: 20
+      - name: install dependencies
+        run: npm install
+      - name: publish
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run publish
+
+  publish_on_win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@master
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./out/myapp-win32-x64/myapp.exe
-          asset_name: myapp.exe
-          asset_content_type: application/octet-stream
+          node-version: 20
+      - name: install dependencies
+        run: npm install
+      - name: publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run publish
