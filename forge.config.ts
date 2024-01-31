@@ -45,7 +45,7 @@ const config: ForgeConfig = {
       config: {
         repository: {
           owner: "usersuyashpandey",
-          name: "electron-starter",
+          name: "electron",
         },
         prerelease: true,
       },
