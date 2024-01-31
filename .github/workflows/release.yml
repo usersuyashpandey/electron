@@ -22,7 +22,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - name: Build app
-        run: npm run build
+        run: npm run package
       - name: Make .exe file
         run: npm run make
       - name: Create Release
