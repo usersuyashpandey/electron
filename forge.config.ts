@@ -23,17 +23,17 @@ const config: ForgeConfig = {
       build: [
         {
           // `entry` is just an alias for `build.lib.entry` in the corresponding file of `config`.
-          entry: "src/main.ts",
+          entry: "src/main.tsx",
           config: "vite.main.config.ts",
         },
         {
-          entry: "src/preload.ts",
+          entry: "src/preload.tsx",
           config: "vite.preload.config.ts",
         },
       ],
       renderer: [
         {
-          name: "main_window",
+          name: "scr/renderer.tsx",
           config: "vite.renderer.config.ts",
         },
       ],
@@ -46,8 +46,8 @@ const config: ForgeConfig = {
         repository: {
           owner: "usersuyashpandey",
           name: "electron",
+          draft: true,
         },
-        prerelease: true,
       },
     },
   ],
