@@ -30,7 +30,7 @@ const config: ForgeConfig = {
       ],
       renderer: [
         {
-          name: "scr/renderer.tsx",
+          name: "main_window",
           config: "vite.renderer.config.ts",
         },
       ],
