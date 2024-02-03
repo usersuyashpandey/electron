@@ -28,11 +28,18 @@ jobs:
       - name: Build application
         run: npm run make
 
+      - name: Archive and Upload artifacts
+        id: archive
+        run: |
+          tar -czf artifacts.tar.gz out/**/*
+          echo "::set-output name=archive::artifacts.tar.gz"
+        shell: bash
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}
-          path: out/**/*
+          path: ${{ steps.archive.outputs.archive }}
 
   release:
     needs: build
@@ -58,32 +65,12 @@ jobs:
           draft: false
           prerelease: false
 
-      # - name: Upload Release Asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./artifacts/ubuntu-latest/out/**/*
-      #     asset_name: app-linux-x64.tar.gz
-      #     asset_content_type: application/gzip
-
       - name: Upload Release Asset for Windows
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: out/**/*
-          asset_name: Xecta App.exe
+          asset_path: artifacts/artifacts.tar.gz
+          asset_name: Xecta-App-Windows-${{ github.run_id }}
           asset_content_type: application/octet-stream
-
-      # - name: Upload Release Asset for MacOS
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./artifacts/macos-latest/out/**/*
-      #     asset_name: app-macos-x64.dmg
-      #     asset_content_type: application/octet-stream
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
