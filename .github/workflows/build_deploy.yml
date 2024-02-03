@@ -49,6 +49,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+      - name: List downloaded artifacts
+        run: ls -la artifacts
 
       - name: Create GitHub Release
         id: create_release
@@ -57,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           tag_name: package
-          release_name: Release ${{ github.action_path }}
+          release_name: Releases
           body: |
             Changes in this Release
             - First item
