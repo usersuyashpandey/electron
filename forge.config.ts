@@ -6,9 +6,7 @@ import { MakerRpm } from "@electron-forge/maker-rpm";
 import { VitePlugin } from "@electron-forge/plugin-vite";
 
 const config: ForgeConfig = {
-  packagerConfig: {
-    asar: true,
-  },
+  packagerConfig: {},
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({}),
@@ -16,15 +14,28 @@ const config: ForgeConfig = {
     new MakerRpm({}),
     new MakerDeb({}),
   ],
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "usersuyashpandey",
+          name: "electron",
+        },
+        prerelease: false,
+        draft: true,
+      },
+    },
+  ],
   plugins: [
     new VitePlugin({
       build: [
         {
-          entry: "src/main.tsx",
+          entry: "src/main.ts",
           config: "vite.main.config.ts",
         },
         {
-          entry: "src/preload.tsx",
+          entry: "src/preload.ts",
           config: "vite.preload.config.ts",
         },
       ],
@@ -35,18 +46,6 @@ const config: ForgeConfig = {
         },
       ],
     }),
-  ],
-  publishers: [
-    {
-      name: "@electron-forge/publisher-github",
-      config: {
-        repository: {
-          owner: "usersuyashpandey",
-          name: "electron",
-          draft: true,
-        },
-      },
-    },
   ],
 };
 
