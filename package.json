@@ -1,10 +1,9 @@
 {
   "name": "xecta-app",
   "productName": "Xecta App",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Xecta App description",
   "main": ".vite/build/main.js",
-  "type": "module",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
