@@ -74,8 +74,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/windows-latest/out/**/*
-          asset_name: app-win32-x64.exe
+          asset_path: out/**/*
+          asset_name: Xecta App.exe
           asset_content_type: application/octet-stream
 
       # - name: Upload Release Asset for MacOS
