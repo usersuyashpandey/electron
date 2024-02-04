@@ -26,6 +26,8 @@ jobs:
         run: npm ci
 
       - name: Build application
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run make:all
 
       - name: Publish application
