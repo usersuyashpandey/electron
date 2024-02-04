@@ -29,4 +29,6 @@ jobs:
         run: npm run make
 
       - name: Publish application
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run publish
