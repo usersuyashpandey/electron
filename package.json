@@ -1,13 +1,13 @@
 {
   "name": "xecta-app",
   "productName": "Xecta App",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Xecta App description",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make --platform=windows --arch=x64",
+    "make": "electron-forge make --platform=win32 --arch=x64",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
