@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Tooltip, Typography, styled } from "@mui/material";
-// import { Thermostat, HourglassBottom, LightModeOutlined, DarkMode } from "@mui/icons-material";
+import {
+  Thermostat,
+  HourglassBottom,
+  LightModeOutlined,
+  DarkMode,
+} from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -84,8 +89,7 @@ const LeftsidePanel: React.FC<LeftsidePanelProps> = ({ handleTheme }) => {
           placement="right"
         >
           <Link to="/forecast">
-            {/* <Thermostat color="action" style={{ fontSize: "24px" }} /> */}
-            Thermostat
+            <Thermostat color="action" style={{ fontSize: "24px" }} />
           </Link>
         </Tooltip>
         <Tooltip
@@ -93,8 +97,7 @@ const LeftsidePanel: React.FC<LeftsidePanelProps> = ({ handleTheme }) => {
           placement="right"
         >
           <Link to="/bhp">
-            {/* <HourglassBottom color="action" style={{ fontSize: "24px" }} /> */}
-            HourglassBottom
+            <HourglassBottom color="action" style={{ fontSize: "24px" }} />
           </Link>
         </Tooltip>
       </Box>
@@ -106,11 +109,15 @@ const LeftsidePanel: React.FC<LeftsidePanelProps> = ({ handleTheme }) => {
         >
           <Box>
             {theme.palette.mode === "light" ? (
-              // <DarkMode color="action" style={{ fontSize: "24px", cursor: "pointer" }} />
-              <Typography>DarkMode</Typography>
+              <DarkMode
+                color="action"
+                style={{ fontSize: "24px", cursor: "pointer" }}
+              />
             ) : (
-              <Typography>LightModeOutlined</Typography>
-              // <LightModeOutlined color="action" style={{ fontSize: "24px", cursor: "pointer" }} />
+              <LightModeOutlined
+                color="action"
+                style={{ fontSize: "24px", cursor: "pointer" }}
+              />
             )}
           </Box>
         </Tooltip>
