@@ -52,16 +52,6 @@ jobs:
           draft: false
           prerelease: false
 
-      # - name: Upload Release Asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./artifacts/ubuntu-latest/out/**/*
-      #     asset_name: app-linux-x64.tar.gz
-      #     asset_content_type: application/gzip
-
       - name: Upload Release Asset for Windows
         uses: actions/upload-release-asset@v1
         env:
@@ -72,12 +62,15 @@ jobs:
           asset_name: Xecta App.exe
           asset_content_type: application/octet-stream
 
-      # - name: Upload Release Asset for MacOS
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./artifacts/macos-latest/out/**/*
-      #     asset_name: app-macos-x64.dmg
-      #     asset_content_type: application/octet-stream
+  update_release_draft:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: windows-latest
+    steps:
+      - uses: release-drafter/release-drafter@v6
+        with:
+          config-name: release-drafter.yml
+        #   disable-autolabeler: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
