@@ -1,12 +1,12 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import Forecast from "./Apps/Forecast";
 import Bhp from "./Apps/BHP/BHP";
 import Layout from "./components/Layout/Layout";
 
 const AppRoute: React.FC = () => {
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "/",
       element: <Layout />,
