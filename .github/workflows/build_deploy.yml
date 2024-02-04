@@ -28,49 +28,18 @@ jobs:
       - name: Build application
         run: npm run make
 
-  release:
-    needs: build
-    runs-on: windows-latest
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
+      - name: Build application
+        run: npm run publish
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First item
-            - Second item
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset for Windows
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: out/**/*
-          asset_name: Xecta App.exe
-          asset_content_type: application/octet-stream
-
-  update_release_draft:
-    permissions:
-      contents: write
-      pull-requests: write
-    runs-on: windows-latest
-    steps:
-      - uses: release-drafter/release-drafter@v6
-        with:
-          config-name: release-drafter.yml
-        #   disable-autolabeler: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  # update_release_draft:
+  #   permissions:
+  #     contents: write
+  #     pull-requests: write
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: release-drafter/release-drafter@v6
+  #       with:
+  #         config-name: release-drafter.yml
+  #       #   disable-autolabeler: true
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

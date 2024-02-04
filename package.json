@@ -1,7 +1,7 @@
 {
   "name": "xecta-app",
   "productName": "Xecta App",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Xecta App description",
   "main": ".vite/build/main.js",
   "scripts": {
