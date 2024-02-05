@@ -37,15 +37,20 @@ jobs:
           sudo apt update
           sudo apt install --install-recommends winehq-stable
 
-      - name: Build Electron app
-        run: |
-          if [[ "${MATRIX_OS}" == "windows-latest" ]]; then
-            npm run make:win
-          elif [[ "${MATRIX_OS}" == "ubuntu-latest" ]]; then
-            npm run make:linux
-          else
-            npm run make:mac
-          fi
+      - name: Build Mac app
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run make:mac
+
+      - name: Build Windows app
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run make:win32
+
+      - name: Build Linux app
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run make:linux
 
       - name: Publish application
         env:
