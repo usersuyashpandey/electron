@@ -1,7 +1,7 @@
 {
   "name": "xecta-app",
   "productName": "Xecta App",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "Xecta App description",
   "main": ".vite/build/main.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
     "@electron-forge/plugin-vite": "^7.2.0",
     "@electron-forge/publisher-github": "^7.2.0",
-    "@types/react": "^18.2.53",
+    "@types/react": "^18.2.54",
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
