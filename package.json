@@ -1,19 +1,16 @@
 {
   "name": "xecta-app",
   "productName": "Xecta App",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "Xecta App description",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make:win": "electron-forge make --arch=x64 --platform=win32",
-    "make:win32": "electron-forge make --arch=ia32 --platform=win32",
-    "make:mac": "electron-forge make --arch=x64 --platform=darwin",
-    "make:linux": "electron-forge make --arch=x64 --platform=linux",
+    "package-mac": "electron-forge package --platform=darwin --arch=x64; electron-forge package --platform=darwin --arch=arm64",
     "make": "electron-forge make",
-    "make:all": "run-s make:mac make:win make:win32 make:linux",
-    "publish": "electron-forge publish",
+    "make-mac": "electron-forge make --platform=darwin --arch=x64; electron-forge make --platform=darwin --arch=arm64",
+    "publish-mac": "electron-forge publish --arch=x64; electron-forge publish --arch=arm64",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],

@@ -12,10 +12,29 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
-    new MakerZIP({}, ["darwin"]),
-    new MakerRpm({}),
-    new MakerDeb({}),
+    {
+      name: "@electron-forge/maker-squirrel",
+      config: {},
+    },
+    {
+      name: "@electron-forge/maker-zip",
+      platforms: ["darwin"],
+      config: {},
+    },
+    {
+      name: "@electron-forge/maker-dmg",
+      config: {
+        format: "ULFO",
+      },
+    },
+    {
+      name: "@electron-forge/maker-deb",
+      config: {},
+    },
+    {
+      name: "@electron-forge/maker-rpm",
+      config: {},
+    },
   ],
   publishers: [
     {
