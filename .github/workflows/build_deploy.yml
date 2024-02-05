@@ -39,13 +39,13 @@ jobs:
 
       - name: Build Electron app
         run: |
-          if ("${{ matrix.os }}" -eq "windows-latest") {
+          if [[ "${MATRIX_OS}" == "windows-latest" ]]; then
             npm run make:win
-          } elseif ("${{ matrix.os }}" -eq "ubuntu-latest") {
+          elif [[ "${MATRIX_OS}" == "ubuntu-latest" ]]; then
             npm run make:linux
-          } else {
+          else
             npm run make:mac
-          }
+          fi
 
       - name: Publish application
         env:
