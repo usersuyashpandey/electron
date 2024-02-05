@@ -6,7 +6,10 @@ import { MakerRpm } from "@electron-forge/maker-rpm";
 import { VitePlugin } from "@electron-forge/plugin-vite";
 
 const config: ForgeConfig = {
-  packagerConfig: {},
+  packagerConfig: {
+    asar: true,
+    prune: true,
+  },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({}),
