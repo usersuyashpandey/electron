@@ -155,6 +155,17 @@
   optionalDependencies:
     electron-installer-debian "^3.2.0"
 
+"@electron-forge/maker-dmg@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.npmjs.org/@electron-forge/maker-dmg/-/maker-dmg-7.2.0.tgz"
+  integrity sha512-hVCDWF2m2SOav0bHZygIwGy3aIWSgWgWiio+Ahoin4qQhtReXYwY2r+idBEBvTo4hnNuUVRHAS0IGVsIS/91AQ==
+  dependencies:
+    "@electron-forge/maker-base" "7.2.0"
+    "@electron-forge/shared-types" "7.2.0"
+    fs-extra "^10.0.0"
+  optionalDependencies:
+    electron-installer-dmg "^4.0.0"
+
 "@electron-forge/maker-rpm@^7.2.0":
   version "7.2.0"
   resolved "https://registry.npmjs.org/@electron-forge/maker-rpm/-/maker-rpm-7.2.0.tgz"
@@ -1905,6 +1916,16 @@ ee-first@1.1.1:
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
+electron-installer-dmg@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/electron-installer-dmg/-/electron-installer-dmg-4.0.0.tgz"
+  integrity sha512-g3W6XnyUa7QGrAF7ViewHdt6bXV2KYU1Pm1CY3pZpp+H6mOjCHHAhf/iZAxtaX1ERCb+SQHz7xSsAHuNH9I8ZQ==
+  dependencies:
+    debug "^4.3.2"
+    minimist "^1.1.1"
+  optionalDependencies:
+    appdmg "^0.6.4"
+
 electron-squirrel-startup@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/electron-squirrel-startup/-/electron-squirrel-startup-1.0.0.tgz"
@@ -3517,7 +3538,7 @@ minimatch@9.0.3:
   dependencies:
     brace-expansion "^2.0.1"
 
-minimist@^1.2.0, minimist@^1.2.6, minimist@^1.2.8:
+minimist@^1.1.1, minimist@^1.2.0, minimist@^1.2.6, minimist@^1.2.8:
   version "1.2.8"
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
