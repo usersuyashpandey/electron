@@ -30,9 +30,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            npm run make:win
+             npm run make:win
           elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            npm run make:mac
+             npm run make:mac
           fi
 
       - name: Publish application
