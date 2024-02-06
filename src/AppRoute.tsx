@@ -1,9 +1,9 @@
 import React from "react";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import Forecast from "./Apps/Forecast";
+import Forecast from "./Apps/Forecast/Forecast";
 import Bhp from "./Apps/BHP/BHP";
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/layout/Layout";
 
 const AppRoute: React.FC = () => {
   const router = createHashRouter([

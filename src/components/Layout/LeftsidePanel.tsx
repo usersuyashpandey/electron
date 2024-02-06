@@ -1,20 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Box, Tooltip, Typography, styled } from "@mui/material";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Box } from '@mui/material'
 import {
   Thermostat,
   HourglassBottom,
   LightModeOutlined,
   DarkMode,
 } from "@mui/icons-material";
-import { useTheme } from "@mui/material/styles";
+import { styled, useTheme } from '@mui/system'
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  display: "flex",
-  width: "25px",
-  justifyContent: "space-between",
-  flexDirection: "column",
+  backgroundColor: theme.palette.background.header || '',
+  display: 'flex',
+  width: '40px',
+  justifyContent: 'space-between',
+  flexDirection: 'column',
   padding: theme.spacing(1),
   marginLeft: -10,
   height: "100vh",
@@ -74,7 +74,11 @@ const LeftsidePanel: React.FC<LeftsidePanelProps> = ({ handleTheme }) => {
 
   return (
     <StyledBox>
-      <HomeIcon />
+      <div style={{ padding: '5px' }}>
+        <Link to="/">
+          <HomeIcon />
+        </Link>
+      </div>
       <Box
         style={{
           display: "flex",
@@ -84,45 +88,41 @@ const LeftsidePanel: React.FC<LeftsidePanelProps> = ({ handleTheme }) => {
           justifyContent: "center",
         }}
       >
-        <Tooltip
-          title={<Typography style={{ fontSize: "10px" }}>Forecast</Typography>}
-          placement="right"
-        >
-          <Link to="/forecast">
-            <Thermostat color="action" style={{ fontSize: "24px" }} />
-          </Link>
-        </Tooltip>
-        <Tooltip
-          title={<Typography style={{ fontSize: "10px" }}>BHP</Typography>}
-          placement="right"
-        >
-          <Link to="/bhp">
-            <HourglassBottom color="action" style={{ fontSize: "24px" }} />
-          </Link>
-        </Tooltip>
+        <Link to="/forecast">
+          <Thermostat
+            style={{ fontSize: '24px', color: theme.palette.text.primary }}
+          />
+        </Link>
+        <Link to="/bhp">
+          <HourglassBottom
+            style={{ fontSize: '24px', color: theme.palette.text.primary }}
+          />
+        </Link>
+      </Box >
+      <Box mb={3} ml={1}>
+        <Box>
+          {theme.palette?.mode === 'light' ? (
+            <DarkMode
+              style={{
+                fontSize: '24px',
+                color: theme.palette.text.primary,
+                cursor: 'pointer',
+              }}
+              onClick={handleTheme}
+            />
+          ) : (
+            <LightModeOutlined
+              style={{
+                fontSize: '24px',
+                color: theme.palette.text.primary,
+                cursor: 'pointer',
+              }}
+              onClick={handleTheme}
+            />
+          )}
+        </Box>
       </Box>
-      <Box mb={3}>
-        <Tooltip
-          title={theme.palette.mode === "light" ? "Dark Mode" : "Light Mode"}
-          placement="right"
-          onClick={handleTheme}
-        >
-          <Box>
-            {theme.palette.mode === "light" ? (
-              <DarkMode
-                color="action"
-                style={{ fontSize: "24px", cursor: "pointer" }}
-              />
-            ) : (
-              <LightModeOutlined
-                color="action"
-                style={{ fontSize: "24px", cursor: "pointer" }}
-              />
-            )}
-          </Box>
-        </Tooltip>
-      </Box>
-    </StyledBox>
+    </StyledBox >
   );
 };
 

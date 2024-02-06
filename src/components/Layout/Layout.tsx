@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { Box, ThemeProvider } from "@mui/material";
-import { Outlet } from "react-router-dom";
-import LeftsidePanel from "./LeftsidePanel";
-import getTheme from "../../style/Theme";
+import React, { useState } from 'react'
+import { Box, ThemeProvider } from '@mui/system'
+import { Outlet } from 'react-router-dom'
+import LeftsidePanel from './LeftsidePanel'
+import lightTheme from '../../style/LightTheme';
+import darkTheme from '../../style/DarkTheme';
 
-const Layout = () => {
-  const [themeMode, setThemeMode] = useState<"light" | "dark">("light");
-  const theme = getTheme(themeMode);
+const Layout: React.FC = () => {
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light')
+
   const handleTheme = () => {
-    setThemeMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-  };
+    setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+  }
+  const theme = themeMode === 'light' ? lightTheme : darkTheme
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -18,7 +21,7 @@ const Layout = () => {
           marginTop: -1,
           marginRight: -1,
           padding: 0,
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: theme.palette.background.screen,
         }}
       >
         <LeftsidePanel handleTheme={handleTheme} />

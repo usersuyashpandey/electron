@@ -8,11 +8,9 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-latest]
         node-version: [20.x]
 
     steps:
@@ -27,30 +25,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Wine (for Linux and macOS)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo dpkg --add-architecture i386
-          wget -nc https://dl.winehq.org/wine-builds/winehq.key
-          sudo apt-key add winehq.key
-          sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
-          sudo apt update
-          sudo apt install --install-recommends winehq-stable
+      # - name: Deploy to DigitalOcean
+      #   uses: digitalocean/app_action@main
+      #   with:
+      #     app_name: xecta-apps-ui
+      #     token: ${{ secrets.DO_PAT }}
 
-      - name: Build Mac app
+      - name: Build application
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run make:mac
-
-      - name: Build Windows app
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run make:win32
-
-      - name: Build Linux app
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run make:linux
+        run: npm run make:win
 
       - name: Publish application
         env:
