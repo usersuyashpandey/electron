@@ -1,9 +1,13 @@
-const { app, BrowserWindow, screen } = require("electron");
+const { app, BrowserWindow, screen, autoUpdater } = require("electron");
 import path from "path";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
+}
+
+if (app.isPackaged) {
+  require("update-electron-app")();
 }
 
 const createWindow = () => {
@@ -38,7 +42,10 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", () => {
+  createWindow();
+  // autoUpdater?.checkForUpdatesAndNotify();
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -59,3 +66,16 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+// Handle updates
+autoUpdater.on("update-available", () => {
+  console.log("update-available");
+});
+
+autoUpdater.on("update-not-available", () => {
+  console.log("update-not-available");
+});
+
+autoUpdater.on("update-downloaded", () => {
+  autoUpdater.quitAndInstall();
+});

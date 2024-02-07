@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
-import { Box, ThemeProvider } from '@mui/system'
-import { Outlet } from 'react-router-dom'
-import LeftsidePanel from './LeftsidePanel'
-import lightTheme from '../../style/LightTheme';
-import darkTheme from '../../style/DarkTheme';
+import React, { useState } from "react";
+import { Box, ThemeProvider } from "@mui/system";
+import { Outlet } from "react-router-dom";
+import LeftsidePanel from "./LeftsidePanel";
+import lightTheme from "../../style/LightTheme";
+import darkTheme from "../../style/DarkTheme";
+import UpdateChecker from "../../UpdateChecker";
 
 const Layout: React.FC = () => {
-  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light')
+  const [themeMode, setThemeMode] = useState<"light" | "dark">("light");
 
   const handleTheme = () => {
-    setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
-  }
-  const theme = themeMode === 'light' ? lightTheme : darkTheme
+    setThemeMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
+  const theme = themeMode === "light" ? lightTheme : darkTheme;
 
   return (
     <ThemeProvider theme={theme}>
+      <UpdateChecker />
       <Box
         sx={{
           display: "flex",
