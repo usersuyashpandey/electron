@@ -1,14 +1,8 @@
-const { app, BrowserWindow, screen, autoUpdater } = require("electron");
+const { app, BrowserWindow, screen, ipcMain } = require("electron");
 import path from "path";
+const { autoUpdater } = require("electron-updater");
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require("electron-squirrel-startup")) {
-  app.quit();
-}
-
-if (app.isPackaged) {
-  require("update-electron-app")();
-}
+let mainWindow: any;
 
 const createWindow = () => {
   // Create the browser window.
@@ -16,7 +10,7 @@ const createWindow = () => {
   const windowWidth = Math.round(width * 0.75);
   const windowHeight = Math.round(height * 0.75);
 
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: windowWidth,
     height: windowHeight,
     webPreferences: {
@@ -26,7 +20,6 @@ const createWindow = () => {
     },
   });
 
-  // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
   } else {
@@ -35,21 +28,17 @@ const createWindow = () => {
     );
   }
 
+  mainWindow.once("ready-to-show", () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on("ready", () => {
   createWindow();
-  // autoUpdater?.checkForUpdatesAndNotify();
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
@@ -57,25 +46,23 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
-
-// Handle updates
-autoUpdater.on("update-available", () => {
-  console.log("update-available");
+ipcMain.on("app_version", (event) => {
+  event.sender.send("app_version", { version: app.getVersion() });
 });
 
-autoUpdater.on("update-not-available", () => {
-  console.log("update-not-available");
+autoUpdater.on("update-available", () => {
+  mainWindow.webContents.send("update_available");
 });
 
 autoUpdater.on("update-downloaded", () => {
+  mainWindow.webContents.send("update_downloaded");
+});
+
+ipcMain.on("restart_app", () => {
   autoUpdater.quitAndInstall();
 });
