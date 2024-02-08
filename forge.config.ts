@@ -27,7 +27,7 @@ const config: ForgeConfig = {
   ],
   publishers: [
     {
-      name: publisherGitHub?.name,
+      name: "@electron-forge/publisher-github",
       config: {
         repository: {
           owner: "usersuyashpandey",
