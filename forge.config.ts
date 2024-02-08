@@ -13,12 +13,7 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({
-      name: "Xecta App",
-      exe: "Xecta-App.exe",
-      setupExe: `Xecta-App-${process.env.APP_VERSION}-Setup.exe`,
-      remoteReleases: "https://github.com/usersuyashpandey/electron/releases",
-    }),
+    new MakerSquirrel({}),
     new MakerZIP({}, ["darwin"]),
     new MakerRpm({}),
     new MakerDeb({}),
