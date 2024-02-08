@@ -1,66 +1,15 @@
-const { app, BrowserWindow, screen, autoUpdater } = require("electron");
+const { app, BrowserWindow, screen } = require("electron");
 import path from "path";
-import axios from "axios";
+const { updateElectronApp, UpdateSourceType } = require("update-electron-app");
 
-const currentVersion = app.getVersion();
-const feedURL = `https://github.com/usersuyashpandey/electron/releases/download/${currentVersion}/update.xml`;
-autoUpdater.setFeedURL(feedURL);
-
-autoUpdater.setFeedURL(feedURL);
-
-// Disable auto downloading of updates
-autoUpdater.autoDownload = false;
-console.log("suyash", app.getVersion());
-
-const checkForUpdatesAndNotify = () => {
-  console.log("checkForUpdatesAndNotify");
-  autoUpdater.checkForUpdates();
-};
-
-// Event listeners for autoUpdater
-autoUpdater.on("update-available", () => {
-  console.log("Update available. Downloading...");
-  // Optionally, notify the user about the update here
+updateElectronApp({
+  updateSource: {
+    type: UpdateSourceType.ElectronPublicUpdateService,
+    repo: "usersuyashpandey/electron",
+  },
+  updateInterval: "5 minutes",
+  logger: require("electron-log"),
 });
-
-autoUpdater.on("update-downloaded", () => {
-  console.log("Update downloaded. Installing...");
-  autoUpdater.quitAndInstall();
-});
-
-autoUpdater.on("error", (error: any) => {
-  console.error(`Error occurred while checking for updates: ${error}`);
-});
-
-// Fetch the latest release from GitHub Releases API
-const getLatestRelease = async () => {
-  try {
-    const response = await axios.get(
-      "https://api.github.com/repos/usersuyashpandey/electron/releases/latest",
-      {
-        headers: {
-          Accept: "application/vnd.github.v3+json",
-          Authorization: `token ${process.env.GH_TOKEN}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching latest release:", error.message);
-    return null;
-  }
-};
-
-const setAutoUpdaterFeedURL = async () => {
-  const latestRelease = await getLatestRelease();
-  if (latestRelease) {
-    const feedURL = latestRelease.tarball_url;
-    autoUpdater.setFeedURL({
-      url: feedURL,
-      provider: "generic",
-    });
-  }
-};
 
 const createWindow = () => {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -90,36 +39,15 @@ const createWindow = () => {
 app.whenReady().then(async () => {
   createWindow();
 
-  try {
-    // Set the autoUpdater feed URL initially
-    await setAutoUpdaterFeedURL();
-
-    // Check for updates every hour (you can adjust this interval)
-    setInterval(async () => {
-      await setAutoUpdaterFeedURL();
-      checkForUpdatesAndNotify();
-    }, 3600000);
-
-    // Notify after setting up the autoUpdater feed URL
-    checkForUpdatesAndNotify();
-
-    app.on("activate", () => {
-      if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
-      }
-    });
-  } catch (error) {
-    console.error("Error during app initialization:", error.message);
-  }
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
 });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
-});
-
-// Optionally, handle the 'before-quit' event to check for updates before quitting
-app.on("before-quit", () => {
-  autoUpdater.checkForUpdates();
 });

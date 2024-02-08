@@ -5,7 +5,6 @@ import { MakerDeb } from "@electron-forge/maker-deb";
 import { MakerDMG } from "@electron-forge/maker-dmg";
 import { MakerRpm } from "@electron-forge/maker-rpm";
 import { VitePlugin } from "@electron-forge/plugin-vite";
-import publisherGitHub from "@electron-forge/publisher-github";
 
 const config: ForgeConfig = {
   packagerConfig: {
@@ -15,9 +14,9 @@ const config: ForgeConfig = {
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
-      name: "Xecta.App",
+      name: "Xecta App",
       exe: "Xecta-App.exe",
-      setupExe: "Xecta-App-Setup.exe",
+      setupExe: `Xecta-App-${process.env.APP_VERSION}-Setup.exe`,
       remoteReleases: "https://github.com/usersuyashpandey/electron/releases",
     }),
     new MakerZIP({}, ["darwin"]),
@@ -34,7 +33,7 @@ const config: ForgeConfig = {
           name: "electron",
         },
         draft: true,
-        token: process.env.GH_TOKEN,
+        token: `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`,
       },
     },
   ],
