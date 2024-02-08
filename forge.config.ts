@@ -15,7 +15,7 @@ const config: ForgeConfig = {
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
-      name: "Xecta App",
+      name: "Xecta.App",
       exe: "Xecta-App.exe",
       setupExe: "Xecta-App-Setup.exe",
       remoteReleases: "https://github.com/usersuyashpandey/electron/releases",
