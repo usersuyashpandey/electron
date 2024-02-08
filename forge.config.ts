@@ -2,9 +2,10 @@ import type { ForgeConfig } from "@electron-forge/shared-types";
 import { MakerSquirrel } from "@electron-forge/maker-squirrel";
 import { MakerZIP } from "@electron-forge/maker-zip";
 import { MakerDeb } from "@electron-forge/maker-deb";
-import { MakerRpm } from "@electron-forge/maker-rpm";
 import { MakerDMG } from "@electron-forge/maker-dmg";
+import { MakerRpm } from "@electron-forge/maker-rpm";
 import { VitePlugin } from "@electron-forge/plugin-vite";
+import publisherGitHub from "@electron-forge/publisher-github";
 
 const config: ForgeConfig = {
   packagerConfig: {
@@ -13,7 +14,12 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerSquirrel({
+      name: "Xecta App",
+      exe: "Xecta-App.exe",
+      setupExe: "Xecta-App-Setup.exe",
+      remoteReleases: "https://github.com/usersuyashpandey/electron/releases",
+    }),
     new MakerZIP({}, ["darwin"]),
     new MakerRpm({}),
     new MakerDeb({}),
@@ -21,13 +27,14 @@ const config: ForgeConfig = {
   ],
   publishers: [
     {
-      name: "@electron-forge/publisher-github",
+      name: publisherGitHub.name,
       config: {
         repository: {
           owner: "usersuyashpandey",
           name: "electron",
         },
         draft: true,
+        token: process.env.GH_TOKEN,
       },
     },
   ],
