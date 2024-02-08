@@ -1,7 +1,7 @@
 {
   "name": "electron",
   "productName": "electron",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "electron",
   "main": ".vite/build/main.js",
   "repository": "https://github.com/usersuyashpandey/electron",
