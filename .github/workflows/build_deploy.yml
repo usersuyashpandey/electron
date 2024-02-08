@@ -5,9 +5,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   build_windows:
     runs-on: windows-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,12 +34,12 @@ jobs:
         run: npm run make:win
 
       - name: Publish application
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run publish
 
   build_mac:
     runs-on: macos-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -47,8 +55,6 @@ jobs:
           npm ci
 
       - name: Build application for macOS
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run make:mac
 
       - name: Publish application
