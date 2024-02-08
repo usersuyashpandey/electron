@@ -27,8 +27,6 @@ const config: ForgeConfig = {
           owner: "usersuyashpandey",
           name: "electron",
         },
-        draft: true,
-        token: `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`,
       },
     },
   ],
