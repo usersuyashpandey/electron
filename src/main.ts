@@ -2,14 +2,17 @@ const { app, BrowserWindow, screen } = require("electron");
 import path from "path";
 const { updateElectronApp, UpdateSourceType } = require("update-electron-app");
 
-updateElectronApp({
-  updateSource: {
-    type: UpdateSourceType.ElectronPublicUpdateService,
-    repo: "usersuyashpandey/electron",
-  },
-  updateInterval: "5 minutes",
-  logger: require("electron-log"),
-});
+updateElectronApp();
+
+// updateElectronApp({
+//   updateSource: {
+//     type: UpdateSourceType.ElectronPublicUpdateService,
+//   },
+//   updateInterval: "5 minutes",
+//   logger: require("electron-log"),
+//   // Add this line to skip the development mode check
+//   isDevMode: false, // Set this to false to enable updates in development mode
+// });
 
 const createWindow = () => {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;

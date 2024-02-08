@@ -1,9 +1,10 @@
 {
-  "name": "xecta-app",
-  "productName": "Xecta App",
-  "version": "0.0.7",
-  "description": "Xecta App description",
+  "name": "electron",
+  "productName": "electron",
+  "version": "0.0.8",
+  "description": "electron",
   "main": ".vite/build/main.js",
+  "repository": "https://github.com/usersuyashpandey/electron",
   "scripts": {
     "start": "electron-forge start",
     "start:web": "vite --open",
